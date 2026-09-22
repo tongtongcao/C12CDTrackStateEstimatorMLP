@@ -27,7 +27,7 @@ def parse_args():
 
     parser.add_argument("--device", type=str, choices=["cpu", "gpu", "auto"], default="auto", help="Choose device: cpu, gpu, or auto (default: auto)")
     parser.add_argument("inputs", type=str, nargs="*", default=["clustersTracks.csv"], help="One or more input CSV files")
-    parser.add_argument("--max_epochs", type=int, default=50, help="Number of training epochs")
+    parser.add_argument("--max_epochs", type=int, default=80, help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=256, help="Batch size for DataLoader")
     parser.add_argument("--outdir", type=str, default="outputs/local", help="Directory to save models and plots")
     parser.add_argument("--end_name", type=str, default="", help="Optional suffix to append to output files (default: none)")
