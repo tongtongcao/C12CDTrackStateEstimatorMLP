@@ -5,29 +5,27 @@ def read_track_state_data(filename):
     """
     Read CVT track-state training data.
 
-    Each line contains 89 values:
+    Each line contains 44 values:
 
-    Layer 1:
-        xo, yo, zo, xe, ye, ze, mask
+    SVT crosses for regions from 1 to 3:
+        x, y, z, region, mask
 
-    Layer 2:
-        xo, yo, zo, xe, ye, ze, mask
-
-    ...
-
-    Layer 12:
-        xo, yo, zo, xe, ye, ze, mask
+    BMT clusters for layers from 1 to 6:
+        BMT-C clusters:
+            r, z, layer+3, mask
+        BMT-Z clusters:
+            r, phi, layer+3, mask
 
     Track state:
         d0, phi0, kappa, z0, tandip
 
     Total:
-        12 * 7 + 5 = 89 values
+        5 * 3 + 4 * 6 + 5 = 44 values
 
     Returns
     -------
     features : np.ndarray
-        shape [N, 84]
+        shape [N, 39]
 
         For each layer:
             [xo, yo, zo, xe, ye, ze, mask]
@@ -60,9 +58,7 @@ def read_track_state_data(filename):
             )
 
         # --------------------------------------------------
-        # First 66 values:
-        # 6 layers × 6 features
-        # 6 layers × 5 features
+        # First 39 values as input features
         # --------------------------------------------------
         input_values = vals[:39]
 

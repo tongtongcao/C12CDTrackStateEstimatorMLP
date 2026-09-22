@@ -70,14 +70,6 @@ class TrackDataset(Dataset):
         y = self.targets[idx].copy()
 
         if self.normalize:
-            # --------------------------------------------------
-            # 12 CVT layers
-            # Each layer:
-            #   xo, yo, zo, xe, ye, ze, mask
-            # 7 features for first 6 layers
-            # 8 features for next 7 layers
-            # --------------------------------------------------
-
             for layer in range(9):
                 if layer < 3:
                     start = layer * 5
@@ -198,8 +190,6 @@ def main():
 
         # ======================================================
         # Input feature statistics
-        # Each layer:
-        #   xo, yo, zo, xe, ye, ze, mask
         # Only samples with mask == 1 are used for calculating
         # coordinate mean/std.
         # ======================================================
@@ -270,45 +260,7 @@ def main():
             norm_stats[f"out_mean_{i}"] = float(mean)
             norm_stats[f"out_std_{i}"] = float(std)
 
-        # Print feature statistics
-        '''
-        print("\n=== Feature statistics ===")
-        for layer in range(12):
-            if layer < 6:
-                start = layer * 6
-                print(f"\nLayer {layer + 1}")
-                names = ["xo", "yo", "zo", "xe", "ye", "ze"]
-
-                for j, name in enumerate(names):
-                    i = start + j
-                    print(f"  {name:2s}: mean={norm_stats[f'in_mean_{i}']:.6g}, std={norm_stats[f'in_std_{i}']:.6g}")
-
-                mask_index = start + 5
-
-                print(f"  mask: mean={norm_stats[f'in_mean_{mask_index}']:.6g}, std={norm_stats[f'in_std_{mask_index}']:.6g}")
-            else:
-                start = 6*6 + (layer-6) * 5
-                print(f"\nLayer {layer + 1}")
-                names = ["xo", "yo", "zo", "xe", "ye", "ze"]
-
-                for j, name in enumerate(names):
-                    i = start + j
-                    print(f"  {name:2s}: mean={norm_stats[f'in_mean_{i}']:.6g}, std={norm_stats[f'in_std_{i}']:.6g}")
-
-                mask_index = start + 4
-
-                print(
-                    f"  mask: mean={norm_stats[f'in_mean_{mask_index}']:.6g}, std={norm_stats[f'in_std_{mask_index}']:.6g}")
-        '''
-        # Print target statistics
-        state_names = ["d0", "phi0", "kappa", "z0", "tandip"]
-
-        print("\n=== Target statistics ===")
-        for i, name in enumerate(state_names):
-            print(f"{name:7s}: mean={norm_stats[f'out_mean_{i}']:.6g}, std={norm_stats[f'out_std_{i}']:.6g}")
-
         # Save normalization statistics
-
         with open(norm_stats_out_path, "w") as f:
             json.dump(norm_stats, f, indent=2)
 

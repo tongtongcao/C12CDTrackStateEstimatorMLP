@@ -38,11 +38,7 @@ class TrackStateMLP(pl.LightningModule):
         Parameters
         ----------
         x_cont : torch.Tensor
-        Shape: [batch_size, 84]
-        
-        12 CVT layers × 7 features:
-        
-        xo, yo, zo, xe, ye, ze, mask
+        Shape: [batch_size, 39]
         
         Returns
         -------
