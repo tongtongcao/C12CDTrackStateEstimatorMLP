@@ -50,17 +50,17 @@ class Plotter:
     # ------------------------------------------------------------
     # residual
     # ------------------------------------------------------------
-    def plot_residuals(self, preds, targets, fit_range_factor={"d0": 0.8, "phi0": 0.8, "kappa": 0.8, "z0": 0.6, "tandip": 1}):
+    def plot_residuals(self, preds, targets, fit_range_factor={"d0": 0.8, "phi0": 0.8, "kappa": 0.8, "z0": 0.8, "tandip": 0.8}):
 
         preds = preds.detach().cpu().numpy()
         targets = targets.detach().cpu().numpy()
 
         plot_ranges = {
-            "d0": (-0.2, 0.2),
-            "phi0": (-0.5, 0.5),
-            "kappa": (-2, 2),
-            "z0": (-3, 3),
-            "tandip": (-0.5, 0.5)
+            "d0": (-0.1, 0.1),
+            "phi0": (-0.3, 0.3),
+            "kappa": (-1, 1),
+            "z0": (-1.5, 1.5),
+            "tandip": (-0.2, 0.2)
         }
 
         # --------------------------------------------------------
