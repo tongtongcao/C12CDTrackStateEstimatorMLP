@@ -39,6 +39,8 @@ def parse_args():
     parser.add_argument("--enable_progress_bar", action="store_true", help="Enable progress bar during training (default: disabled)")
     parser.add_argument("--model_file", type=str, default=None, help="Path to TorchScript model (.pt). If omitted, use the default model.")
     parser.add_argument("--norm_file", type=str, default=None, help="Path to normalization statistics (norm_stats.json). If omitted, use the default normalization.")
+    # Scale based on scaling factor of magnetic field
+    parser.add_argument("--scale", type=float, default=1.0)
     return parser.parse_args()
 
 
@@ -436,8 +438,8 @@ def main():
     all_targets_denorm = (all_targets * out_std + out_mean)
 
     # Generate comparison plots
-    plotter.plot_residuals(all_preds_denorm, all_targets_denorm)
-    plotter.plot_pred_target(all_preds_denorm, all_targets_denorm)
+    plotter.plot_residuals(all_preds_denorm, all_targets_denorm, args.scale)
+    plotter.plot_pred_target(all_preds_denorm, all_targets_denorm, args.scale)
 
     # Target statistics
     state_names = ["d0", "phi0", "kappa", "z0", "tandip"]

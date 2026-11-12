@@ -50,10 +50,13 @@ class Plotter:
     # ------------------------------------------------------------
     # residual
     # ------------------------------------------------------------
-    def plot_residuals(self, preds, targets, fit_range_factor={"d0": 0.8, "phi0": 0.8, "kappa": 0.8, "z0": 0.8, "tandip": 0.8}):
-
+    def plot_residuals(self, preds, targets, scale=1.0, fit_range_factor={"d0": 0.8, "phi0": 0.8, "kappa": 0.8, "z0": 0.8, "tandip": 0.8}):
         preds = preds.detach().cpu().numpy()
         targets = targets.detach().cpu().numpy()
+
+        # Momentum magnitude is scaled by the scale factor of magnetic field
+        preds = preds.copy()
+        preds[:, 2] /= scale
 
         plot_ranges = {
             "d0": (-0.1, 0.1),
@@ -199,9 +202,13 @@ class Plotter:
     # ------------------------------------------------------------
     # prediction vs target
     # ------------------------------------------------------------
-    def plot_pred_target(self, preds, targets, bins=100):
+    def plot_pred_target(self, preds, targets, scale=1.0, bins=100):
         preds = preds.detach().cpu().numpy()
         targets = targets.detach().cpu().numpy()
+
+        # Momentum magnitude is scaled by the scale factor of magnetic field
+        preds = preds.copy()
+        preds[:, 2] /= scale
 
         if preds.ndim != 2 or targets.ndim != 2:
             raise ValueError("preds and targets must be 2D arrays")
