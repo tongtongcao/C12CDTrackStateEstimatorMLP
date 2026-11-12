@@ -39,7 +39,7 @@ def parse_args():
     parser.add_argument("--enable_progress_bar", action="store_true", help="Enable progress bar during training (default: disabled)")
     parser.add_argument("--model_file", type=str, default=None, help="Path to TorchScript model (.pt). If omitted, use the default model.")
     parser.add_argument("--norm_file", type=str, default=None, help="Path to normalization statistics (norm_stats.json). If omitted, use the default normalization.")
-    # Scale based on scaling factor of magnetic field
+    # Relative scale = ratio of scale factor of magnetic field between validation samples and training samples
     parser.add_argument("--scale", type=float, default=1.0)
     return parser.parse_args()
 
