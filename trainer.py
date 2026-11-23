@@ -6,7 +6,7 @@ from pytorch_lightning.callbacks import Callback
 
 class TrackStateMLP(pl.LightningModule):
 
-    def __init__(self, input_dim=84, state_dim=5, hidden_dim=64, num_layers=3, lr=1e-3, dropout=0.1, phi_mean=0, phi_std=1):
+    def __init__(self, input_dim, state_dim=5, hidden_dim=512, num_layers=3, lr=1e-3, dropout=0.1, phi_mean=0, phi_std=1):
         super().__init__()
 
         self.save_hyperparameters()

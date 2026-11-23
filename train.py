@@ -32,7 +32,7 @@ def parse_args():
     parser.add_argument("--outdir", type=str, default="outputs/local", help="Directory to save models and plots")
     parser.add_argument("--end_name", type=str, default="", help="Optional suffix to append to output files (default: none)")
     parser.add_argument("--hidden_dim", type=int, default=512)
-    parser.add_argument("--num_layers", type=int, default=8)
+    parser.add_argument("--num_layers", type=int, default=3)
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate for optimizer")
     parser.add_argument("--dropout", type=float, default=0, help="Dropout rate for the MLP model (default: 0.1)")
     parser.add_argument("--no_train", action="store_true", help="Skip training and only run inference using a saved model")
